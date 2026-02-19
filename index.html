@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialBoost | Premium Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050506; color: #fff; scroll-behavior: smooth; }
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .nav-pill { background: #0f0f11; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .gradient-text { background: linear-gradient(135deg, #a78bfa, #60a5fa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .loader { border-top-color: #8b5cf6; animation: spin 0.8s linear infinite; border-radius: 50%; border-width: 3px; border-style: solid; border-color: rgba(255,255,255,0.1); border-top-color: #8b5cf6; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade { animation: fadeIn 0.4s ease-out forwards; }
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- NAVBAR PILL (DRIBBBLE STYLE) -->
+    <div class="fixed top-6 left-0 w-full z-50 flex justify-center px-4">
+        <nav class="nav-pill rounded-full py-2 px-5 flex items-center gap-8">
+            <div class="bg-violet-600 p-2 rounded-full shadow-lg shadow-violet-600/40">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </div>
+            <div class="flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                <a href="#home" class="hover:text-white transition">Home</a>
+                <a href="#compra" class="hover:text-white transition">Compra</a>
+            </div>
+            <button class="bg-white text-black px-4 py-2 rounded-full font-black text-[10px] uppercase hover:bg-violet-600 hover:text-white transition-all">LOGIN</button>
+        </nav>
+    </div>
+
+    <!-- SEÇÃO HOME / HERO -->
+    <section id="home" class="pt-48 pb-20 px-6 text-center">
+        <div class="max-w-4xl mx-auto animate-fade">
+            <h1 class="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-tight">DOMINE AS <br><span class="gradient-text">REDES SOCIAIS.</span></h1>
+            <p class="text-gray-500 max-w-lg mx-auto text-lg mb-10">Serviços de engajamento premium com entrega instantânea e suporte 24h.</p>
+            <a href="#compra" class="bg-white text-black px-10 py-4 rounded-full font-bold hover:bg-violet-600 hover:text-white transition-all shadow-xl shadow-white/5">Começar Agora</a>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DE COMPRA -->
+    <section id="compra" class="py-24 px-6 flex flex-col items-center">
+        <div class="max-w-xl w-full">
+            
+            <div id="form-box" class="glass p-8 md:p-10 rounded-[40px] shadow-2xl animate-fade">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-black uppercase tracking-tighter">Fazer Pedido</h2>
+                    <p class="text-[9px] text-gray-500 font-bold uppercase tracking-[0.4em] mt-2 text-violet-500">Qualidade Garantida</p>
+                </div>
+
+                <div class="space-y-5">
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-500 uppercase mb-2 block tracking-widest">Instagram do Perfil</label>
+                        <input type="text" id="ig_user" placeholder="@neudiidj" class="w-full bg-black/40 border border-white/10 p-4 rounded-2xl focus:border-violet-500 outline-none font-bold text-white transition-all">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-500 uppercase mb-2 block tracking-widest">Escolha o Serviço</label>
+                        <select id="servico" class="w-full bg-black/40 border border-white/10 p-4 rounded-2xl focus:border-violet-500 outline-none font-bold text-sm text-white" onchange="calc()">
+                            <option value="3.00">🚀 Seguidores Premium (R$ 3,00/k)</option>
+                            <option value="2.00">❤️ Curtidas Reais (R$ 2,00/k)</option>
+                            <option value="1.50">👁️ Visualizações (R$ 1,50/k)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-gray-500 uppercase mb-2 block tracking-widest">Quantidade</label>
+                        <input type="number" id="qtd" value="1000" step="100" class="w-full bg-black/40 border border-white/10 p-4 rounded-2xl focus:border-violet-500 outline-none text-2xl font-black text-white" oninput="calc()">
+                    </div>
+                    <div class="flex justify-between items-center py-6 border-t border-white/5 mt-4">
+                        <span class="text-gray-500 font-bold uppercase text-xs">Total do Pedido</span>
+                        <span id="total_display" class="text-3xl font-black tracking-tighter text-white">R$ 3,00</span>
+                    </div>
+                    <button onclick="irParaPagamento()" class="w-full bg-white text-black py-5 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-violet-600 hover:text-white transition-all shadow-xl">FINALIZAR COMPRA</button>
+                </div>
+            </div>
+
+            <!-- TELA DE PAGAMENTO (QR CODE CONFIGURADO) -->
+            <div id="payment-area" class="hidden glass p-8 rounded-[40px] text-center border-violet-500/30 animate-fade">
+                <h3 class="font-black text-xl mb-6 uppercase tracking-tighter">Pagamento PIX</h3>
+                
+                <!-- QR Code Gerado com seus dados -->
+                <div class="bg-white p-4 rounded-3xl inline-block mb-6 shadow-2xl">
+                    <img id="qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=00020126330014BR.GOV.BCB.PIX0111010293282425204000053039865802BR5924Mateus Henrique Ferreira6009SAO PAULO62140510VYw1JiLoHp6304C77A" alt="QR Code PIX" class="w-52 h-52">
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-black/40 p-4 rounded-2xl border border-white/5">
+                        <p class="text-[9px] font-bold text-gray-500 uppercase tracking-widest mb-2">Chave PIX (CPF)</p>
+                        <p class="text-white font-bold text-sm">010.293.282-42</p>
+                    </div>
+
+                    <div class="bg-black/40 p-4 rounded-2xl border border-white/5">
+                        <p class="text-[9px] font-bold text-gray-500 uppercase tracking-widest mb-2">Código Copia e Cola</p>
+                        <input type="text" id="pix-string" value="00020126330014BR.GOV.BCB.PIX0111010293282425204000053039865802BR5924Mateus Henrique Ferreira6009SAO PAULO62140510VYw1JiLoHp6304C77A" readonly class="w-full bg-transparent text-center text-[10px] font-mono text-violet-400 outline-none">
+                    </div>
+                    <button onclick="copyPix()" class="text-[10px] font-bold uppercase text-white underline tracking-widest mb-8 block mx-auto hover:text-violet-400 transition">Copiar Código PIX</button>
+                </div>
+                
+                <button onclick="gerarReciboFinal()" class="w-full bg-violet-600 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-violet-500 transition-all shadow-lg shadow-violet-600/20">JÁ REALIZEI O PAGAMENTO</button>
+            </div>
+
+            <!-- RECIBO FINAL (EXATAMENTE COMO VOCÊ PEDIU) -->
+            <div id="recibo" class="hidden glass p-8 rounded-[40px] border-green-500/20 bg-green-500/[0.02] animate-fade">
+                <div class="text-center mb-10">
+                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/30">
+                        <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-black uppercase tracking-tighter">Pedido Confirmado</h3>
+                </div>
+                
+                <div class="bg-black/60 p-6 rounded-3xl border border-white/10 font-mono space-y-2 relative">
+                    <div class="absolute top-0 right-0 p-3 text-[10px] font-bold text-gray-700 uppercase tracking-widest">Official</div>
+                    
+                    <p id="res-id" class="text-violet-400 font-black text-xl">#6262783</p>
+                    <p id="res-serv" class="text-white font-bold text-sm uppercase">1mil seguidores</p>
+                    <p id="res-val" class="text-white text-sm font-bold">R$ 3,00</p>
+                    <p id="res-ig" class="text-gray-400 font-bold text-sm pt-4 border-t border-white/5 mt-4">Ig: @neudiidj</p>
+                </div>
+                
+                <button onclick="window.location.reload()" class="w-full mt-8 py-4 text-gray-600 font-bold text-[10px] uppercase tracking-widest hover:text-white transition">Fazer Novo Pedido</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOADING OVERLAY -->
+    <div id="loading" class="fixed inset-0 bg-black/95 z-[100] hidden flex-col items-center justify-center">
+        <div class="loader w-12 h-12 mb-4"></div>
+        <p class="text-[10px] font-bold tracking-[0.4em] text-violet-500 uppercase">Processando...</p>
+    </div>
+
+    <script>
+        // Lógica de Preços
+        function calc() {
+            const qtd = parseInt(document.getElementById('qtd').value) || 0;
+            const preco = parseFloat(document.getElementById('servico').value);
+            const total = (qtd / 1000) * preco;
+            document.getElementById('total_display').innerText = `R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+        }
+
+        function irParaPagamento() {
+            const ig = document.getElementById('ig_user').value;
+            if(ig.length < 3) return alert("Por favor, informe seu Instagram para continuar!");
+
+            document.getElementById('loading').classList.remove('hidden');
+            document.getElementById('loading').classList.add('flex');
+
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('form-box').classList.add('hidden');
+                document.getElementById('payment-area').classList.remove('hidden');
+                window.scrollTo(0, 0);
+            }, 1200);
+        }
+
+        function copyPix() {
+            const input = document.getElementById('pix-string');
+            input.select();
+            document.execCommand('copy');
+            alert("Código PIX copiado! Pague no seu banco e volte aqui.");
+        }
+
+        function gerarReciboFinal() {
+            const ig = document.getElementById('ig_user').value;
+            const qtd = document.getElementById('qtd').value;
+            const serv = document.getElementById('servico').options[document.getElementById('servico').selectedIndex].text.split('(')[0].trim();
+
+            // Gerador de ID aleatório profissional
+            document.getElementById('res-id').innerText = "#" + Math.floor(Math.random() * 9000000 + 1000000);
+            document.getElementById('res-serv').innerText = `${qtd} ${serv}`;
+            document.getElementById('res-val').innerText = document.getElementById('total_display').innerText;
+            // Ig: @neudiidj
+            document.getElementById('res-ig').innerText = `Ig: ${ig.startsWith('@') ? ig : '@'+ig}`;
+
+            document.getElementById('payment-area').classList.add('hidden');
+            document.getElementById('recibo').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
